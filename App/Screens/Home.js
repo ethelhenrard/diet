@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+    FlatList,
     StyleSheet,
     Text,
     View,
@@ -7,18 +8,15 @@ import {
 import Meal from '../Components/Meal'
 
 
-
-export default Home = ({navigation}) => {
+export default Home = () => {
 
     return(
         <View>
-            <Meal title="Petit Déjeuner"/>
-            <Meal title="Déjeuner"/>
-            <Meal title="Dîner"/>
+            <Meal/>
             <Text style={styles.meal}>Résumé</Text>
         </View>
 )
-}
+};
 
 const styles = StyleSheet.create({
     meal: {
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         margin: 10,
         padding: 10,
-        width: '100%'
+
     },
     body: {
         backgroundColor: '#F1F8FE',
