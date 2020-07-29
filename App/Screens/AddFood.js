@@ -2,26 +2,23 @@ import React, {useEffect, useState} from 'react';
 import {
     FlatList,
     StyleSheet,
+    Text,
     TextInput,
-    TouchableOpacity,
     View,
 } from 'react-native';
-import { Button } from 'react-native-elements';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Search from '../Components/Search';
+import {useNavigation} from '@react-navigation/native';
 
 
-export default AddFood = () => {
+
+export default AddFood = ({navigation}) => {
+
+    const navigation = useNavigation();
+
     const [searchInput, setSearchInput] = useState('');
     const [listFood, setListFood] = useState([]);
-
-    const onPress =() => setSearchInput
-
-    useEffect(()=>{
-        getListFood()
-    }, [])
+    const [firstRequest, setFirstRequest] = useState(false);
 
 
     const getListFood = async () => {
@@ -36,18 +33,21 @@ export default AddFood = () => {
                 headers: {
                     'x-app-id': '6364c735',
                     'x-app-key': '6f0c7733909f9a21cd4a115abbbede8f'
-                    //"Content-Type": "application/json"
                 }
             });
             let data = await response.json()
+            //si des données sont disponibles, alors les mettre dans le state
             if (data.common)
                 setListFood(data.common)
+                setFirstRequest(true)
+            console.log('firstRequest:',firstRequest)
             console.log('liste:',listFood);
         } catch (e) {
             console.log(e)
         }
     }
     console.log('searchInput:', searchInput );
+
     return(
         <View>
             <View style={styles.container}>
@@ -57,27 +57,23 @@ export default AddFood = () => {
                     value={searchInput}
                     placeholder={'Veuillez saisir un aliment'}
                 />
-                <Button
-                    icon={
-                        <Icon
-                            name="search-plus"
-                            size={20}
-                            color="white"
-                        />
-                    }
-                    title={''}
+                <Icon.Button
+                    name="search"
+                    backgroundColor='#2A94ED'
                     onPress={getListFood}
                 />
             </View>
             <View>
                 <FlatList
                     data={listFood}
-                    renderItem={({ item }) => <Search id={item.id} food_name={item.food_name} image={item.photo.thumb}/>}
-                    keyExtractor={item => item.index}
+                    renderItem={({ item }) => <Search food_name={item.food_name} image={item.photo.thumb} />}
+                    //keyExtractor={item =>'key'+ Math.random(item.tag_id)}
+                    keyExtractor={index => index.toString()}
                 />
+                {(listFood.length===0 && firstRequest) ? <Text> Pas de résultat à votre recherche</Text> : null}
             </View>
         </View>
-)
+    )
 }
 
 const styles = StyleSheet.create({
