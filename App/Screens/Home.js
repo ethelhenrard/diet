@@ -1,21 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
     StyleSheet,
     Text,
     View,
 } from 'react-native';
-import Meal from '../Components/Meal'
+import Meal from '../Components/Meal';
 
 
 export default Home = ({route}) => {
 
 
-    return(
+    return (
         <View>
+            {/*propriétés à passer dans le composant*/}
             <Meal post={route.params} item={route.params}/>
             <Text style={styles.meal}>Résumé</Text>
         </View>
-)
+    );
 };
 
 const styles = StyleSheet.create({
@@ -29,5 +30,5 @@ const styles = StyleSheet.create({
     body: {
         backgroundColor: '#F1F8FE',
         flex: 1,
-    }
-})
+    },
+});

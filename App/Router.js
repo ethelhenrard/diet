@@ -1,13 +1,12 @@
 import 'react-native-gesture-handler';
-
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, useColorScheme} from 'react-native';
-
 import Home from './Screens/Home';
 import AddFood from './Screens/AddFood';
 
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+
 
 const Stack = createStackNavigator();
 
@@ -25,19 +24,18 @@ export default function Router() {
         <NavigationContainer theme={MyTheme}>
             <Stack.Navigator>
                 <Stack.Screen
-                    style={styles.header}
                     name="Home"
                     component={Home}
-                    options={()=> ({
-                        title: "AUJOURD'HUI",
-                        headerTitleStyle: {textAlign:"center"}
+                    options={() => ({
+                        title: 'AUJOURD\'HUI',
+                        headerTitleStyle: {textAlign: 'center', fontWeight: 'bold'},
                     })
-                }/>
+                    }/>
                 <Stack.Screen
                     name="AddFood"
                     component={AddFood}
-                    options={()=> ({
-                        title: "AJOUTER UN ALIMENT"
+                    options={() => ({
+                        title: 'AJOUTER UN ALIMENT',
                     })}
                 />
             </Stack.Navigator>
@@ -45,9 +43,5 @@ export default function Router() {
     );
 }
 
-const styles = StyleSheet.create({
-    header: {
-        justifyContent: 'center',
-    }
-})
+
 
