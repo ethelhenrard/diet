@@ -1,50 +1,52 @@
 import React, {useEffect, useState} from 'react';
 import {
     Alert,
-    Image,
+    Image, LogBox,
     StyleSheet,
     Text, TouchableHighlight,
     View,
 } from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import { YellowBox } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
+LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+]);
+
+export default Search = (props, {route}) =>{
+    const navigation = useNavigation();
+
+    const {post, setMeals, meals, item}= props;
+    console.log('props:', post)
 
 
-
-
-export default Search = (props) => {
-
-    const [selectedFood, setSelectedFood] = useState([]);
-    console.log('selected:', selectedFood);
-
-    return (
-        <View>
-            <TouchableHighlight
-                style={styles.result}
-                onPress={() => {
-                    //TODO: gérer les erreurs ex: si pas ajouté
-                    Alert.alert('Aliment ajouté!');
-                    //setSelectedFood(props.food_name);
-                   /* navigation.navigate('home',{
-                        name: name,
-                        food: route.params.food,
-                    });*/
-                }}
-            >
-                <View style={styles.container}>
-                    <Image
-                    style={styles.image}
-                    source={{uri: props.image}}
-                    />
-                    <Text>{props.food_name}</Text>
-                    <FontAwesomeIcon icon={faPlusCircle} size={20} color="#2A94ED"/>
-                </View>
-            </TouchableHighlight>
-        </View>
-
-);
-
-};
+    console.log(item)
+        return (
+            <View>
+                <TouchableHighlight
+                    style={styles.result}
+                    onPress={() => navigation.navigate( 'Home', {
+                            post: post,
+                            item: item,
+                        }
+                        )}
+                        //TODO: gérer les erreurs ex: si pas ajouté
+                        //Alert.alert('Aliment ajouté!');
+                >
+                    <View style={styles.container}>
+                        <Image
+                        style={styles.image}
+                        source={{uri: item.photo.thumb}}
+                        />
+                        <Text>{item.food_name}</Text>
+                        <FontAwesomeIcon icon={faPlusCircle} size={20} color="#2A94ED"/>
+                    </View>
+                </TouchableHighlight>
+            </View>
+        );
+    };
 
 const styles = StyleSheet.create({
 container: {
@@ -65,3 +67,4 @@ height: 40,
 margin: 5,
 },
 });
+

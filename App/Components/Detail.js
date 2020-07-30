@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {
+    FlatList,
     StyleSheet, Text,
     View,
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+
+import {useNavigation} from '@react-navigation/native';
+import Search from './Search';
 
 
-export default Detail = (props) => {
-
-    /*useEffect(() => {
-        if (route.params?.post) {
-            setMeals(props.selectedFood)
-        }
-    }, [route.params?.post])*/
+export default Detail = (item) => {
 
     return(
         <View>
+            {/*<FlatList
+                data={}
+                renderItem={({ item }) => <Text>{item.food.name}</Text>}
+                keyExtractor={item =>'key'+ Math.random(item.tag_id)}
+            />*/}
 
         </View>
 )

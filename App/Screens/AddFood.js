@@ -8,13 +8,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Search from '../Components/Search';
-import {useNavigation} from '@react-navigation/native';
 
-
-
-export default AddFood = ({navigation}) => {
-
-    const navigation = useNavigation();
+export default AddFood = ({route}) => {
+    const {post, setMeals, meals} = route.params;
+    console.log('posts:', post);
 
     const [searchInput, setSearchInput] = useState('');
     const [listFood, setListFood] = useState([]);
@@ -46,6 +43,7 @@ export default AddFood = ({navigation}) => {
             console.log(e)
         }
     }
+
     console.log('searchInput:', searchInput );
 
     return(
@@ -66,9 +64,8 @@ export default AddFood = ({navigation}) => {
             <View>
                 <FlatList
                     data={listFood}
-                    renderItem={({ item }) => <Search food_name={item.food_name} image={item.photo.thumb} />}
-                    //keyExtractor={item =>'key'+ Math.random(item.tag_id)}
-                    keyExtractor={index => index.toString()}
+                    renderItem={({ item }) => <Search setMeals={setMeals} item={item} post={post} meals={meals} />}
+                    keyExtractor={item =>'key'+ Math.random(item.tag_id)}
                 />
                 {(listFood.length===0 && firstRequest) ? <Text> Pas de résultat à votre recherche</Text> : null}
             </View>

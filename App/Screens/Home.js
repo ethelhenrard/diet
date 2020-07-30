@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {
-    FlatList,
     StyleSheet,
     Text,
     View,
@@ -8,11 +7,12 @@ import {
 import Meal from '../Components/Meal'
 
 
-export default Home = () => {
+export default Home = ({route}) => {
+
 
     return(
         <View>
-            <Meal/>
+            <Meal post={route.params} item={route.params}/>
             <Text style={styles.meal}>Résumé</Text>
         </View>
 )
